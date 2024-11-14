@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>flask sample app</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <h1>サンプルトップ</h1>
@@ -26,6 +25,5 @@
                     {% endfor %}
                 </table>
             {% endif %}
-        <a href="{{ url_for('form_html') }}">編集</a>
     </body>
 </html>

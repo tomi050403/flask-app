@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>flask sample app</title>
+    </head>
+    <body>
+        <h1>サンプルトップ</h1>
+        <h2>一覧</h2>
+            <table border="1">
+                <tr>
+                    <th>タイトル</th>
+                    <th>ナンバー</th>
+                    <th>登録日</th>
+                </tr>
+                {% for sample in samples %}
+                    <tr>
+                        <td>{{ sample.title }}</td>
+                        <td>{{ sample.number }}番</td>
+                        <td>{{ sample.create_day }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+    </body>
+</html>
