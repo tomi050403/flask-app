@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "flask-ap"
+name = "flaskr"
 version = "0.1.0"
 description = ""
 authors = ["toshi <toshihiro.mitsutake@gmail.com>"]
