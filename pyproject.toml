@@ -2,7 +2,7 @@
 name = "flaskr"
 version = "0.1.0"
 description = ""
-authors = ["toshi <toshihiro.mitsutake@gmail.com>"]
+authors = [""]
 readme = "README.md"
 
 [tool.poetry.dependencies]
