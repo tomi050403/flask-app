@@ -2,12 +2,12 @@
 *.db
 
 # Pythonのキャッシュファイル
-__pycache__/
+*__pycache__/
 *.pyc
 
 # 環境変数ファイル
-.env
+*.env
 
 # 古いコードおよびデータ
-old/
+*old/
 flaskr/old_py/
