@@ -1,3 +1,6 @@
+# データベースファイル
+*.db
+
 # Pythonのキャッシュファイル
 flaskr/__pycache__/
 *.pyc
