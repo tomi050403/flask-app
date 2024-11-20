@@ -1,1 +1,13 @@
-flaskr/.env
+# データベースファイル
+*.db
+
+# Pythonのキャッシュファイル
+__pycache__/
+*.pyc
+
+# 環境変数ファイル
+.env
+
+# 古いコードおよびデータ
+old/
+flaskr/old_py/
