@@ -12,6 +12,7 @@ def create_samples_table():
     
     create_table_sql = """
     CREATE TABLE IF NOT EXISTS samples (
+        id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(100),
         number INT,
         create_day DATETIME
@@ -21,5 +22,3 @@ def create_samples_table():
     
     cursor.close()
     conn.close()
-
-# create_samples_table()

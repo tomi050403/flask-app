@@ -1,8 +1,7 @@
+from dotenv import load_dotenv
 from flaskr import app
 from flask import render_template, request, redirect, url_for
-from flask import render_template
 import mysql.connector
-from dotenv import load_dotenv
 import os
 
 from db_util import db_connect
@@ -20,21 +19,27 @@ def index():
    
     samples = []
     for row in db_samples:
-        samples.append({'title': row[0], 'number': row[1], 'create_day': row[2]})
+        samples.append({'title': row[1], 'number': row[2], 'create_day': row[3]})
         
     return render_template(
         'index.html',
         samples = samples
     )
 
-@app.route('/form')
-def form_html():
+@app.route('/create')
+def create_html():
+    """
+    追加ボタンの遷移先
+    """
     return render_template(
-        'form.html'
+        'create.html'
     )
 
 @app.route('/regist', methods=['POST'])
 def regist():
+    """
+    create処理
+    """
     title = request.form['title']
     number = request.form['number']
     create_day = request.form['create_day']
@@ -42,10 +47,40 @@ def regist():
     connect = db_connect()
     cursor = connect.cursor()
 
-    cursor.execute('INSERT INTO samples VALUES(%s, %s, %s) ',
-                 [title, number, create_day])
-
+    cursor.execute(
+        """
+        INSERT INTO samples (title, number, create_day)
+        VALUES(%s, %s, %s)
+        """,
+        [title, number, create_day]
+    )
     connect.commit()
     cursor.close()
     connect.close()
-    return redirect(url_for('index'))
+    return redirect(url_for('create_success_html'))
+
+@app.route('/create_success')
+def create_success_html():
+    return render_template(
+        'create_success.html'
+    )
+
+
+
+@app.route('/delete_success')
+def delete_success_html():
+    return render_template(
+        'delete_success.html'
+    )
+
+
+
+
+@app.route('/test')
+def for_test():
+    """
+    画面遷移のテストページ
+    """
+    return render_template(
+        'test.html'
+    )
