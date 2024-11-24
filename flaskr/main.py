@@ -19,8 +19,7 @@ def index():
    
     samples = []
     for row in db_samples:
-        samples.append({'title': row[1], 'number': row[2], 'create_day': row[3]})
-        
+        samples.append({'id': row[0], 'title': row[1], 'number': row[2], 'create_day': row[3]})
     return render_template(
         'index.html',
         samples = samples
@@ -66,6 +65,22 @@ def create_success_html():
     )
 
 
+@app.route('/delete/<int:sample_id>', methods=['POST'])
+def delete_sample(sample_id):
+    connect = db_connect()
+    cursor = connect.cursor()
+    
+    cursor.execute(
+        """    
+        DELETE FROM samples WHERE id = %s
+        """,
+        (sample_id,)
+    )
+    
+    connect.commit()
+    cursor.close()
+    connect.close()
+    return redirect(url_for('delete_success_html'))
 
 @app.route('/delete_success')
 def delete_success_html():
