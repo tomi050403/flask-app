@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>flask sample app</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h1>Do you really want to delete it?</h1>
+        <p>Deletion Target：</p>
+        <ul>
+            <li>タイトル： {{ sample.title }}</li>
+            <li>ナンバー： {{ sample.number }}</li>
+            <li>登録日： {{ sample.create_day }}</li>
+        </ul>
+        <form action="{{ url_for('delete_form', sample_id=sample.id) }}" method="post">
+            <button type="submit" name="form" value="true">Delete</button>
+            <button type="submit" name="cancel" value="true">Cancel</button>
+        </form>
+    </body>
+</html>

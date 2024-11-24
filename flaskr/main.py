@@ -65,22 +65,54 @@ def create_success_html():
     )
 
 
-@app.route('/delete/<int:sample_id>', methods=['POST'])
-def delete_sample(sample_id):
+@app.route('/delete_form/<int:sample_id>', methods=['GET','POST'])
+def delete_form(sample_id):
+    print(sample_id)
+
     connect = db_connect()
     cursor = connect.cursor()
-    
+
     cursor.execute(
-        """    
-        DELETE FROM samples WHERE id = %s
+        """
+        SELECT * FROM samples WHERE id = %s
         """,
         (sample_id,)
     )
-    
-    connect.commit()
+
+    delete_row = cursor.fetchone()
     cursor.close()
     connect.close()
-    return redirect(url_for('delete_success_html'))
+
+    if delete_row:
+        sample ={
+            'id': delete_row[0],
+            'title': delete_row[1],
+            'number': delete_row[2],
+            'create_day': delete_row[3]
+        }
+    
+    if request.method == 'POST':
+        if 'form' in request.form:
+            connect = db_connect()
+            cursor = connect.cursor()
+            cursor.execute(
+                """    
+                DELETE FROM samples WHERE id = %s
+                """,
+                (sample_id,)
+            )
+            connect.commit()
+            cursor.close()
+            connect.close()
+            return redirect(url_for('delete_success_html'))
+        else:
+            return redirect(url_for('index'))
+        
+    return render_template(
+        'delete_form.html',
+        sample=sample,
+        samples_id=sample_id
+    )
 
 @app.route('/delete_success')
 def delete_success_html():
