@@ -19,7 +19,12 @@ def index():
    
     samples = []
     for row in db_samples:
-        samples.append({'id': row[0], 'title': row[1], 'number': row[2], 'create_day': row[3]})
+        samples.append({
+            'id': row[0],
+            'title': row[1],
+            'number': row[2],
+            'create_day': row[3]
+        })
     return render_template(
         'index.html',
         samples = samples
