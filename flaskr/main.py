@@ -30,7 +30,7 @@ def index():
         samples = samples
     )
 
-@app.route('/create')
+@app.route('/create_html')
 def create_html():
     """
     追加ボタンの遷移先
@@ -69,21 +69,106 @@ def create_success_html():
         'create_success.html'
     )
 
-
-@app.route('/delete_form/<int:sample_id>', methods=['GET','POST'])
-def delete_form(sample_id):
-    print(sample_id)
-
+@app.route('/read_form/<int:sample_id>', methods=['GET'])
+def read_form(sample_id):
     connect = db_connect()
     cursor = connect.cursor()
-
     cursor.execute(
         """
         SELECT * FROM samples WHERE id = %s
         """,
         (sample_id,)
     )
+    sample_row = cursor.fetchone()
+    cursor.close()
+    connect.close()
+    
+    if sample_row:
+        sample ={
+            'id': sample_row[0],
+            'title': sample_row[1],
+            'number': sample_row[2],
+            'create_day': sample_row[3]
+        }
+    
+    return render_template(
+        'read_form.html',
+        sample=sample,
+        samples_id=sample_id
+    )
 
+@app.route('/update_form/<int:sample_id>', methods=['GET'])
+def update_form(sample_id):
+    connect = db_connect()
+    cursor = connect.cursor()
+    cursor.execute(
+        """
+        SELECT * FROM samples WHERE id = %s
+        """,
+        (sample_id,)
+    )
+    sample_row = cursor.fetchone()
+    cursor.close()
+    connect.close()
+    
+    if sample_row:
+        sample ={
+            'id': sample_row[0],
+            'title': sample_row[1],
+            'number': sample_row[2],
+            'create_day': sample_row[3]
+        }
+    else:
+        return redirect(url_for('index'))
+       
+    return render_template(
+        'update_form.html',
+        sample=sample
+    )
+
+@app.route('/update_execute/<int:sample_id>', methods=['POST'])
+def update_execute(sample_id):
+    title = request.form['title']
+    number = request.form['number']
+    create_day = request.form['create_day']
+
+    connect = db_connect()
+    cursor = connect.cursor()
+    
+    cursor.execute(
+        """
+        UPDATE samples SET 
+            title = COALESCE(NULLIF(%s, ''), title),
+            number = COALESCE(NULLIF(%s, ''), number),
+            create_day = COALESCE(NULLIF(%s, ''), create_day)
+        WHERE id = %s
+        """,
+        (title, number, create_day, sample_id,)
+    )
+    connect.commit()
+    cursor.close()
+    connect.close()
+    
+    return redirect(url_for('update_success'))
+
+@app.route('/update_success')
+def update_success():
+    return render_template(
+        'update_success.html'
+    )
+    
+    
+
+@app.route('/delete_form/<int:sample_id>', methods=['GET','POST'])
+def delete_form(sample_id):
+    connect = db_connect()
+    cursor = connect.cursor()
+    cursor.execute(
+        """
+        SELECT * FROM samples WHERE id = %s
+        """,
+        (sample_id,)
+    )
     delete_row = cursor.fetchone()
     cursor.close()
     connect.close()
@@ -95,7 +180,7 @@ def delete_form(sample_id):
             'number': delete_row[2],
             'create_day': delete_row[3]
         }
-    
+   
     if request.method == 'POST':
         if 'form' in request.form:
             connect = db_connect()
@@ -125,6 +210,7 @@ def delete_success_html():
         'delete_success.html'
     )
 
+ 
 
 
 

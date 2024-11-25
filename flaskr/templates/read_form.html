@@ -6,6 +6,14 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <h1>Create Success!</h1>
+        <h1>Read Data</h1>
+        <ul>
+            <li>タイトル： {{ sample.title }}</li>
+            <li>ナンバー： {{ sample.number }}</li>
+            <li>登録日： {{ sample.create_day }}</li>
+        </ul>
+    </body>
+    <body>
         <a href = "{{ url_for('index') }}">Home</a>
     </body>
+</html>

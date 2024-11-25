@@ -9,7 +9,7 @@
         <h1>サンプルトップ</h1>
         <h2>一覧</h2>
             {% if samples == [] %}
-                <p>まだ情報がありません</p>
+                <p>Data not yet</p>
             {% else %}
                 <table border="1">
                     <tr>
@@ -20,10 +20,16 @@
                     {% for sample in samples %}
                         <tr>
                             <td>{{ sample.title }}</td>
-                            <td>{{ sample.number }}番</td>
+                            <td>{{ sample.number }}</td>
                             <td>{{ sample.create_day }}</td>
-                            <td><a href=""><button>Read</button></a></td>
-                            <td><a href=""><button>Update</button></a></td>
+                            <form action="{{ url_for('read_form', sample_id=sample.id) }}" method="get" style="display: inline;">
+                                <td><button type="submit">Read</button></td>
+                            </form>
+
+                            <form action="{{ url_for('update_form', sample_id=sample.id) }}" method="get" style="display: inline;">
+                                <td><button type="submit">Update</button></td>
+                            </form>
+
                             <form action="{{ url_for('delete_form', sample_id=sample.id ) }}" method="get" style="display: inline;">
                                 <td><button type="submit">Delete</button></td>
                             </form>
@@ -31,7 +37,7 @@
                     {% endfor %}
                 </table>
             {% endif %}
-        <a href="{{ url_for('create_html') }}"><button>追加</button></a>
+        <a href="{{ url_for('create_html') }}"><button>Create</button></a>
         <a href="{{ url_for('for_test') }}"><button>test</button></a>
     </body>
 </html>
