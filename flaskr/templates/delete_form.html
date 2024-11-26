@@ -8,11 +8,18 @@
     <body>
         <h1>Do you really want to delete it?</h1>
         <p>Deletion Target：</p>
-        <ul>
-            <li>タイトル： {{ sample.title }}</li>
-            <li>ナンバー： {{ sample.number }}</li>
-            <li>登録日： {{ sample.create_day }}</li>
-        </ul>
+        <table border="1">
+            <tr>
+                <th>タイトル</th>
+                <th>ナンバー</th>
+                <th>登録日</th>
+            </tr>
+            <tr>
+                <td>{{ sample.title }}</td>
+                <td>{{ sample.number }}</td>
+                <td>{{ sample.create_day }}</td>
+            </tr>
+        </table>
         <form action="{{ url_for('delete_form', sample_id=sample.id) }}" method="post">
             <button type="submit" name="form" value="true">Delete</button>
             <button type="submit" name="cancel" value="true">Cancel</button>

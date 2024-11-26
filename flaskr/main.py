@@ -213,12 +213,3 @@ def delete_success_html():
  
 
 
-
-@app.route('/test')
-def for_test():
-    """
-    画面遷移のテストページ
-    """
-    return render_template(
-        'test.html'
-    )
