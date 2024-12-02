@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <title>flask sample app</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      <meta charset="UTF-8">
+      <title>flask sample app</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='test_style.css') }}">
     </head>
     <body>
-        <h1>画面遷移チェックページ</h1>
+      <div class="header">
+        <div class="header_logo"><img src="static/flask_icon.png"></div>
+        <div class="header_list">
+          <a href="{{ url_for('index') }}" class="btn Home">Home</a>
+        </div>
+      </div>    
+
+      <div class="main">
+        <div class="main_title">
+          <h1 class="section-title">HTML_CSSフォームチェックページ</h1>
+        </div>
+        <div class="main_contents">
+
+        </div>
+      </div>
+
+      <div class="footer">
         <a href="{{ url_for('index') }}"><button>戻る</button></a>
+      </div>
     </body>
 </html>

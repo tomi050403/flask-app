@@ -210,6 +210,9 @@ def delete_success_html():
         'delete_success.html'
     )
 
- 
-
+@app.route('/test_html')
+def test_html():
+    return render_template(
+        'test.html'
+    )
 
