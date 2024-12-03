@@ -113,7 +113,12 @@ li {
 }
 
 .main_contents {
-  padding: 20px 20px 20px 20px;
+  padding: 20px 20px 50px 20px;
+}
+
+.main_button {
+  float: left;
+  padding: 20px 0px 0px 0px;
 }
 
 .footer {

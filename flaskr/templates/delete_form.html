@@ -6,23 +6,48 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <h1>Do you really want to delete it?</h1>
-        <p>Deletion Target</p>
-        <table border="1">
-            <tr>
-                <th>タイトル</th>
-                <th>ナンバー</th>
-                <th>登録日</th>
-            </tr>
-            <tr>
-                <td>{{ sample.title }}</td>
-                <td>{{ sample.number }}</td>
-                <td>{{ sample.create_day }}</td>
-            </tr>
-        </table>
-        <form action="{{ url_for('delete_form', sample_id=sample.id) }}" method="post">
-            <button type="submit" name="form" value="true">Delete</button>
-            <button type="submit" name="cancel" value="true">Cancel</button>
-        </form>
+        <div class="header">
+            <div class="header_logo"><img src="{{ url_for('static', filename='flask_icon.png') }}"></div>
+            <div class="header_list">
+                <a href="{{ url_for('index') }}" class="btn Home">Home</a>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="main_title">
+              <h1 class="section-title">Do you really want to delete it?</h1>
+            </div>
+            <div class="main_contents">
+                <p>Deletion Target</p>
+                <table border="1">
+                    <tr>
+                        <th>タイトル</th>
+                        <th>ナンバー</th>
+                        <th>登録日</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ sample.title }}
+                        </td>
+                        <td>
+                            {{ sample.number }}
+                        </td>
+                        <td>
+                            {{ sample.create_day }}
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <form action="{{ url_for('delete_form', sample_id=sample.id) }}" method="post">
+                    <button type="submit" name="form" value="true">Delete</button>
+                    <button type="submit" name="cancel" value="true">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Python+Flask+Mysqlを使ったCRUDアプリケーションです</p>
+        </div>
+
     </body>
 </html>

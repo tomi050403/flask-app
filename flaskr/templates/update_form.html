@@ -6,29 +6,47 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <h1>Do you really want to update it?</h1>
-        <form method="post" action="{{ url_for('update_execute', sample_id=sample.id) }}">
-            <table border="1">
-                <tr>
-                    <th>タイトル</th>
-                    <th>ナンバー</th>
-                    <th>登録日</th>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="title" value="{{ sample.title }}">
-                    </td>
-                    <td>
-                        <input type="number" name="number" value="{{ sample.number }}">
-                    </td>
-                    <td>
-                        <input type="datetime" name="create_day" value="{{ sample.create_day }}">
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <input type="submit" value="Update">
-        </form>
-        <a href="{{ url_for('index') }}"><button type="button">Cancel</button></a>
+        <div class="header">
+            <div class="header_logo"><img src="{{ url_for('static', filename='flask_icon.png') }}"></div>
+            <div class="header_list">
+                <a href="{{ url_for('index') }}" class="btn Home">Home</a>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="main_title">
+              <h1 class="section-title">Update Data</h1>
+            </div>
+            <div class="main_contents">
+                <p>Rewrite to any data</p>
+                <form method="post" action="{{ url_for('update_execute', sample_id=sample.id) }}">
+                    <table border="1">
+                        <tr>
+                            <th>タイトル</th>
+                            <th>ナンバー</th>
+                            <th>登録日</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" name="title" value="{{ sample.title }}">
+                            </td>
+                            <td>
+                                <input type="number" name="number" value="{{ sample.number }}">
+                            </td>
+                            <td>
+                                <input type="datetime" name="create_day" value="{{ sample.create_day }}">
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <input type="submit" value="Update">
+                    <a href="{{ url_for('index') }}"><button type="button">Cancel</button></a>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Python+Flask+Mysqlを使ったCRUDアプリケーションです</p>
+        </div>
     </body>
 </html>

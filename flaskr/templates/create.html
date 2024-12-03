@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="header">
-            <div class="header_logo"><img src="static/flask_icon.png"></div>
+            <div class="header_logo"><img src="{{ url_for('static', filename='flask_icon.png') }}"></div>
             <div class="header_list">
                 <a href="{{ url_for('index') }}" class="btn Home">Home</a>
             </div>
@@ -31,13 +31,15 @@
                         </tr>
                     </table>
                     <br>
-                    <input type="submit" value="登録">
+                    <input type="submit" value="Create">
+                    <a href="{{ url_for('index') }}"><button type="button">Cancel</button></a>
                 </form>
             </div>
         </div>
 
         <div class="footer">
-            <a href="{{ url_for('index') }}"><button>戻る</button></a>
+            <p>Python+Flask+Mysqlを使ったCRUDアプリケーションです</p>
         </div>
+
     </body>
 </html>
