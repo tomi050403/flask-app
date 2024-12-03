@@ -39,8 +39,8 @@ def create_html():
         'create.html'
     )
 
-@app.route('/regist', methods=['POST'])
-def regist():
+@app.route('/create', methods=['POST'])
+def create():
     """
     create処理
     """
