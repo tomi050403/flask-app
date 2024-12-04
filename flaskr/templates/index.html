@@ -7,7 +7,11 @@
     </head>
     <body>
         <div class="header">
-            <div class="header_logo"><img src="{{ url_for('static', filename='flask_icon.png') }}"></div>
+            <div class="header_logo">
+                <img src="{{ url_for('static', filename='python_icon.png') }}">
+                <img src="{{ url_for('static', filename='flask_icon.png') }}">
+                <img src="{{ url_for('static', filename='mysql_icon.png') }}">
+            </div>
             <div class="header_list">
                 <a href="{{ url_for('index') }}" class="btn Home">Home</a>
             </div>
@@ -36,11 +40,9 @@
                                 <form action="{{ url_for('read_form', sample_id=sample.id) }}" method="get" style="display: inline;">
                                     <td><button type="submit">Read</button></td>
                                 </form>
-    
                                 <form action="{{ url_for('update_form', sample_id=sample.id) }}" method="get" style="display: inline;">
                                     <td><button type="submit">Update</button></td>
                                 </form>
-    
                                 <form action="{{ url_for('delete_form', sample_id=sample.id ) }}" method="get" style="display: inline;">
                                     <td><button type="submit">Delete</button></td>
                                 </form>
@@ -49,6 +51,7 @@
                     </table>
                 {% endif %}
                 </div>
+                <br>
                 <div class="main_button">
                     <a href="{{ url_for('create_html') }}"><button>Create</button></a>
                 </div>

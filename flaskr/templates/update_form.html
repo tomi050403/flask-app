@@ -7,7 +7,11 @@
     </head>
     <body>
         <div class="header">
-            <div class="header_logo"><img src="{{ url_for('static', filename='flask_icon.png') }}"></div>
+            <div class="header_logo">
+                <img src="{{ url_for('static', filename='python_icon.png') }}">
+                <img src="{{ url_for('static', filename='flask_icon.png') }}">
+                <img src="{{ url_for('static', filename='mysql_icon.png') }}">
+            </div>
             <div class="header_list">
                 <a href="{{ url_for('index') }}" class="btn Home">Home</a>
             </div>
@@ -19,6 +23,7 @@
             </div>
             <div class="main_contents">
                 <p>Rewrite to any data</p>
+                <br>
                 <form method="post" action="{{ url_for('update_execute', sample_id=sample.id) }}">
                     <table border="1">
                         <tr>
@@ -27,15 +32,9 @@
                             <th>登録日</th>
                         </tr>
                         <tr>
-                            <td>
-                                <input type="text" name="title" value="{{ sample.title }}">
-                            </td>
-                            <td>
-                                <input type="number" name="number" value="{{ sample.number }}">
-                            </td>
-                            <td>
-                                <input type="datetime" name="create_day" value="{{ sample.create_day }}">
-                            </td>
+                            <td><input type="text" name="title" value="{{ sample.title }}"></td>
+                            <td><input type="number" name="number" value="{{ sample.number }}"></td>
+                            <td><input type="datetime" name="create_day" value="{{ sample.create_day }}"></td>
                         </tr>
                     </table>
                     <br>
