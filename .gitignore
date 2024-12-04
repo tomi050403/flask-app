@@ -1,2 +1,4 @@
-flaskr/.env
+.python-version
 
+flaskr/.env
+flaskr/__pycache__

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>flask sample app</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="header">
+            <div class="header_logo">
+                <img src="{{ url_for('static', filename='python_icon.png') }}">
+                <img src="{{ url_for('static', filename='flask_icon.png') }}">
+                <img src="{{ url_for('static', filename='mysql_icon.png') }}">
+            </div>
+            <div class="header_list">
+                <a href="{{ url_for('index') }}" class="btn Home">Home</a>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="main_title">
+              <h1 class="section-title">Delete Success!</h1>
+            </div>
+            <div class="main_contents">
+                <a href="{{ url_for('index') }}"><button type="button">Home</button></a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Python+Flask+Mysqlを使ったCRUDアプリケーションです</p>
+        </div>
+    </body>
+</html>

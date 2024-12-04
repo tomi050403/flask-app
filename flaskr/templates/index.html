@@ -6,26 +6,60 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <h1>サンプルトップ</h1>
-        <h2>一覧</h2>
-            {% if samples == [] %}
-                <p>まだ情報がありません</p>
-            {% else %}
-                <table border="1">
-                    <tr>
-                        <th>タイトル</th>
-                        <th>ナンバー</th>
-                        <th>登録日</th>
-                    </tr>
-                    {% for sample in samples %}
+        <div class="header">
+            <div class="header_logo">
+                <img src="{{ url_for('static', filename='python_icon.png') }}">
+                <img src="{{ url_for('static', filename='flask_icon.png') }}">
+                <img src="{{ url_for('static', filename='mysql_icon.png') }}">
+            </div>
+            <div class="header_list">
+                <a href="{{ url_for('index') }}" class="btn Home">Home</a>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="main_title">
+              <h1 class="section-title">Data List</h1>
+            </div>
+            <div class="main_contents">
+                <div class="main_table">
+                {% if samples == [] %}
+                    <p>Data not yet</p>
+                {% else %}
+                    <table border="1">
                         <tr>
-                            <td>{{ sample.title }}</td>
-                            <td>{{ sample.number }}番</td>
-                            <td>{{ sample.create_day }}</td>
+                            <th>タイトル</th>
+                            <th>ナンバー</th>
+                            <th>登録日</th>
                         </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-        <a href="{{ url_for('form_html') }}">編集</a>
+                        {% for sample in samples %}
+                            <tr>
+                                <td>{{ sample.title }}</td>
+                                <td>{{ sample.number }}</td>
+                                <td>{{ sample.create_day }}</td>
+                                <form action="{{ url_for('read_form', sample_id=sample.id) }}" method="get" style="display: inline;">
+                                    <td><button type="submit">Read</button></td>
+                                </form>
+                                <form action="{{ url_for('update_form', sample_id=sample.id) }}" method="get" style="display: inline;">
+                                    <td><button type="submit">Update</button></td>
+                                </form>
+                                <form action="{{ url_for('delete_form', sample_id=sample.id ) }}" method="get" style="display: inline;">
+                                    <td><button type="submit">Delete</button></td>
+                                </form>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+                </div>
+                <br>
+                <div class="main_button">
+                    <a href="{{ url_for('create_html') }}"><button>Create</button></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Python+Flask+Mysqlを使ったCRUDアプリケーションです</p>
+        </div>
     </body>
 </html>

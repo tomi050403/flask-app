@@ -15,5 +15,3 @@ def db_connect():
         database = os.getenv('DB_NAME')
     )
     return connection
-
-# db_connect()
