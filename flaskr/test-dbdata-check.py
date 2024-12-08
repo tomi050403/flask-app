@@ -21,10 +21,11 @@ connect.close()
 samples = []
 for row in db_samples:
     samples.append({
-        'id': row[0],
-        'title': row[1],
-        'number': row[2],
-        'create_day': row[3]
+            'id': row[0],
+            'filename': row[1],
+            'image_data': row[2],
+            'create_day': row[3],
+            'update_day': row[4]
     })
 
 print(tabulate(samples, headers="keys", tablefmt="grid", stralign="center"))

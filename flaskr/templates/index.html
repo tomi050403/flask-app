@@ -29,13 +29,15 @@
                     <table border="1">
                         <tr>
                             <th>タイトル</th>
-                            <th>ナンバー</th>
+                            <th>イメージ</th>
                             <th>登録日</th>
                         </tr>
                         {% for sample in samples %}
                             <tr>
-                                <td>{{ sample.title }}</td>
-                                <td>{{ sample.number }}</td>
+                                <td>{{ sample.filename }}</td>
+                                <td>
+                                    <img src="{{ sample.image_data }}" alt="{{ sample.filename }}" width="100">
+                                </td>
                                 <td>{{ sample.create_day }}</td>
                                 <form action="{{ url_for('read_form', sample_id=sample.id) }}" method="get" style="display: inline;">
                                     <td><button type="submit">Read</button></td>

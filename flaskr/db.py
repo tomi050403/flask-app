@@ -13,11 +13,20 @@ def create_samples_table():
     create_table_sql = """
     CREATE TABLE IF NOT EXISTS samples (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        title VARCHAR(100),
-        number INT,
-        create_day DATETIME
+        filename VARCHAR(100),
+        image_data MEDIUMBLOB,
+        create_day DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_day DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
     )
     """
+    # create_table_sql = """
+    # CREATE TABLE IF NOT EXISTS samples (
+    #     id INT AUTO_INCREMENT PRIMARY KEY,
+    #     title VARCHAR(100),
+    #     number INT,
+    #     create_day DATETIME
+    # )
+    # """
     cursor.execute(create_table_sql)
     
     cursor.close()

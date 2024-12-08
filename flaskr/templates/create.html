@@ -22,17 +22,15 @@
               <h1 class="section-title">Data input</h1>
             </div>
             <div class="main_contents">
-                <form method="post" action="{{ url_for('create') }}">
+                <form method="post" action="{{ url_for('create') }}" enctype="multipart/form-data">
                     <table border="1">
                         <tr>
                             <th>タイトル</th>
-                            <th>ナンバー</th>
-                            <th>登録日</th>
+                            <th>イメージ</th>
                         </tr>
                         <tr>
-                            <td><input type="text" name="title"></td>
-                            <td><input type="text" name="number"></td>
-                            <td><input type="datetime" name="create_day"></td>
+                            <td><input type="text" name="filename"></td>
+                            <td><input type="file" name="image_data" accept=".jpeg,.jpg,.png,.gif"></td>
                         </tr>
                     </table>
                     <br>
