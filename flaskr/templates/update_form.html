@@ -39,7 +39,7 @@
                             <td>
                                 <img src="{{ sample.image_data }}" alt="{{ sample.filename }}" width="200">
                             </td>
-                            <td><input type="file" name="image_data" accept=".jpeg,.jpg,.png,.gif"></td>
+                            <td><input type="file" name="image_data" accept="{{ accept_file_types }}"></td>
                             <td>{{ sample.create_day }}</td>
                         </tr>
                     </table>

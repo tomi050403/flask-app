@@ -5,10 +5,8 @@ from flask import render_template, request, redirect, url_for
 import mysql.connector
 import os
 
-from db_util import db_connect
+from app_util import db_connect,allow_file
 
-
-ALLOW_FILES = {'jpeg', 'jpg', 'png', 'gif'}
 
 @app.route('/')
 def index():
@@ -18,10 +16,8 @@ def index():
     db_samples = cursor.fetchall()
     cursor.close()
     connect.close()
-   
     samples = []
     for row in db_samples:
-
         image_data = base64.b64encode(row[2]).decode('utf-8') if row[2] else None
         samples.append({
             'id': row[0],
@@ -35,30 +31,21 @@ def index():
         samples = samples
     )
 
-def allow_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOW_FILES
-
 @app.route('/create_html')
 def create_html():
-    """
-    追加ボタンの遷移先
-    """
+    get_acceptfile = os.getenv('ALLOW_FILES')
     return render_template(
-        'create.html'
+        'create.html',
+        accept_file_types=get_acceptfile
     )
 
 @app.route('/create', methods=['POST'])
 def create():
-    """
-    create処理
-    """
     file = request.files['image_data']
     filename = request.form['filename']
-
     if file and allow_file(file.filename):
         image_file = request.files['image_data']
         image_data = image_file.read() if image_file else None
-
         connect = db_connect()
         cursor = connect.cursor()
         cursor.execute(
@@ -94,7 +81,6 @@ def read_form(sample_id):
     sample_row = cursor.fetchone()
     cursor.close()
     connect.close()
-    
     if sample_row:
         image_data = base64.b64encode(sample_row[2]).decode('utf-8') if sample_row[2] else None
         sample ={
@@ -104,7 +90,6 @@ def read_form(sample_id):
             'create_day': sample_row[3],
             'update_day': sample_row[4]
         }
-    
     return render_template(
         'read_form.html',
         sample=sample,
@@ -124,7 +109,6 @@ def update_form(sample_id):
     sample_row = cursor.fetchone()
     cursor.close()
     connect.close()
-    
     if sample_row:
         image_data = base64.b64encode(sample_row[2]).decode('utf-8') if sample_row[2] else None
         sample ={
@@ -134,19 +118,18 @@ def update_form(sample_id):
             'create_day': sample_row[3],
             'update_day': sample_row[4]
         }
-       
+    get_acceptfile = os.getenv('ALLOW_FILES')
     return render_template(
         'update_form.html',
-        sample=sample
+        sample=sample,
+        accept_file_types=get_acceptfile
     )
 
 @app.route('/update_execute/<int:sample_id>', methods=['POST'])
 def update_execute(sample_id):
     file = request.files.get('image_data')
     filename = request.form.get('filename', '').strip()
-
     image_data = file.read() if file and file.filename and allow_file(file.filename) else None
-    
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
@@ -162,7 +145,6 @@ def update_execute(sample_id):
     connect.commit()
     cursor.close()
     connect.close()
-    
     return redirect(url_for('update_success'))
 
 @app.route('/update_success')
@@ -171,7 +153,6 @@ def update_success():
         'update_success.html'
     )
     
-
 @app.route('/delete_form/<int:sample_id>', methods=['GET','POST'])
 def delete_form(sample_id):
     connect = db_connect()
@@ -185,7 +166,6 @@ def delete_form(sample_id):
     delete_row = cursor.fetchone()
     cursor.close()
     connect.close()
-
     if delete_row:
         image_data = base64.b64encode(delete_row[2]).decode('utf-8') if delete_row[2] else None
         sample ={
@@ -195,7 +175,6 @@ def delete_form(sample_id):
             'create_day': delete_row[3],
             'update_day': delete_row[4]
         }
-   
     if request.method == 'POST':
         if 'form' in request.form:
             connect = db_connect()

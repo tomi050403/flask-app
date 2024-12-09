@@ -3,10 +3,6 @@ import mysql.connector
 import os
 
 def db_connect():
-    """
-    データベース接続関数。
-    環境変数から接続情報を読み込みデータベース接続を行う。
-    """
     load_dotenv()
     connection = mysql.connector.connect(
         host = os.getenv('DB_HOST'),
@@ -15,3 +11,7 @@ def db_connect():
         database = os.getenv('DB_NAME')
     )
     return connection
+
+def allow_file(filename):
+    files = os.getenv('ALLOW_FILES')
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in files
