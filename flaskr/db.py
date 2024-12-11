@@ -5,8 +5,7 @@
 
 import mysql.connector
 
-from app_util import db_connect
-
+from flaskr.app_util import db_connect
 
 def create_samples_table():
     conn = db_connect()

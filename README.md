@@ -1,4 +1,4 @@
-# flask-ap
+# flask-app
 ## 概要
 学習目的で作成したWebアプリケーション。<br>
 CRUD操作が可能な簡易画像データ管理システムです。<br>
@@ -89,7 +89,7 @@ ALLOW_FILES = {'jpeg', 'jpg', 'png', 'gif'}
 
 ### 5. アプリケーションの起動
 ```bash
-python flaskr/run.py
+flask run
 ```
 
 ### 6. 動作確認

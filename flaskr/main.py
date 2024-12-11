@@ -1,11 +1,11 @@
 import base64
 from dotenv import load_dotenv
-from flaskr import app
 from flask import render_template, request, redirect, url_for
 import mysql.connector
 import os
 
-from app_util import db_connect,allow_file
+from flaskr import app
+from flaskr.app_util import db_connect,allow_file
 
 
 @app.route('/')
