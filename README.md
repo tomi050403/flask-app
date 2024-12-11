@@ -69,25 +69,41 @@ cd flask-app
 ```
 ### 2. 必要パッケージインストール
 必要なパッケージのインストール。
+
 ### 3. MySQLサーバの設定
 MySQLに本アプリケーション用のデータベースとユーザおよびパスワードを作成。
 
-### 4. 環境変数ファイルの作成
-flaskr配下に.envファイルを作成し、以下のような構成。
-```bash
-touch flaskr/.env
-```
+### 4. 環境変数の設定
+flaskr配下に.envファイルを作成し、環境変数を設定してください。<br>
+以下を参考に記述してください。
+
+| 環境変数       | 説明                            | 例                     |
+| --------------- | ------------------------------- | ---------------------- |
+| `FLASK_APP`     | Flaskアプリのエントリーポイント  | `flaskr`              |
+| `DB_HOST`       | データベースのホスト名          | `localhost`           |
+| `DB_USER`       | データベースのユーザー名        | `root`                |
+| `DB_PASSWORD`   | データベースのパスワード        | `password`            |
+| `DB_NAME`       | データベース名                  | `sample_db`           |
+| `ALLOW_FILES`   | アップロード許可する拡張子リスト | `jpg,jpeg,png`        |
+
 
 ```bash
-DB_HOST = hostname
-DB_USER = ユーザ名
-DB_PASSWORD = パスワード
-DB_NAME = データベース名
+# 例
+FLASK_APP = flaskr
+DB_HOST = "ホスト名"
+DB_USER = "ユーザ名"
+DB_PASSWORD = "パスワード"
+DB_NAME = "データベース名"
 ALLOW_FILES = {'jpeg', 'jpg', 'png', 'gif'}
-# 画像ファイル拡張子の許可リスト
 ```
 
 ### 5. アプリケーションの起動
+
+```bash
+#環境変数のFLASK_APPを設定している場合は不要
+export FALSK_APP=flaskr
+```
+
 ```bash
 flask run
 ```
