@@ -79,7 +79,6 @@ flaskr配下に.envファイルを作成し、環境変数を設定してくだ�
 
 | 環境変数       | 説明                            | 例                     |
 | --------------- | ------------------------------- | ---------------------- |
-| `FLASK_APP`     | Flaskアプリのエントリーポイント  | `flaskr`              |
 | `DB_HOST`       | データベースのホスト名          | `localhost`           |
 | `DB_USER`       | データベースのユーザー名        | `root`                |
 | `DB_PASSWORD`   | データベースのパスワード        | `password`            |
@@ -89,7 +88,6 @@ flaskr配下に.envファイルを作成し、環境変数を設定してくだ�
 
 ```bash
 # 例
-FLASK_APP = flaskr
 DB_HOST = "ホスト名"
 DB_USER = "ユーザ名"
 DB_PASSWORD = "パスワード"
@@ -100,7 +98,6 @@ ALLOW_FILES = {'jpeg', 'jpg', 'png', 'gif'}
 ### 5. アプリケーションの起動
 
 ```bash
-#環境変数のFLASK_APPを設定している場合は不要
 export FALSK_APP=flaskr
 ```
 

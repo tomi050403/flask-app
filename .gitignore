@@ -1,4 +1,5 @@
 .python-version
+.env
+Flask-app_aws-sample.yml
 
-flaskr/.env
 flaskr/__pycache__
