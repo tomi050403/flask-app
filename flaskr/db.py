@@ -6,13 +6,13 @@
 import os
 import mysql.connector
 
-from flaskr.app_util import db_connect
+from flaskr.app_util import db_connect,db_create
 
 def create_database():
     db_name = os.getenv("DB_NAME")
     if not db_name:
         print("環境変数 DB_NAME を設定して下さい。")
-    conn = db_connect()
+    conn = db_create()
     cursor = conn.cursor()
     create_db_sql = """
     CREATE DATABASE IF NOT EXISTS `{db_name}`

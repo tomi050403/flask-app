@@ -2,6 +2,15 @@ from dotenv import load_dotenv
 import mysql.connector
 import os
 
+def db_create():
+    load_dotenv()
+    connection = mysql.connectory.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+    )
+    return connection
+
 def db_connect():
     load_dotenv()
     connection = mysql.connector.connect(
