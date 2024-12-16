@@ -3,12 +3,14 @@
 指定したデータベースおよびテーブルがデータベース側になければ作成。あれば何もしない。
 """
 
+from dotenv import load_dotenv
 import os
 import mysql.connector
 
 from flaskr.app_util import db_connect,db_create
 
 def create_database():
+    load_dotenv()
     db_name = os.getenv("DB_NAME")
     if not db_name:
         print("環境変数 DB_NAME を設定して下さい。")
