@@ -71,7 +71,7 @@ cd flask-app
 必要なパッケージのインストール。
 
 ### 3. MySQLサーバの設定
-MySQLに本アプリケーション用のデータベースとユーザおよびパスワードを作成。
+MySQLの構築と本アプリケーション用のユーザおよびパスワードを作成。
 
 ### 4. 環境変数の設定
 flaskr配下に.envファイルを作成し、環境変数を設定してください。<br>
@@ -82,7 +82,8 @@ flaskr配下に.envファイルを作成し、環境変数を設定してくだ�
 | `DB_HOST`       | データベースのホスト名          | `localhost`           |
 | `DB_USER`       | データベースのユーザー名        | `root`                |
 | `DB_PASSWORD`   | データベースのパスワード        | `password`            |
-| `DB_NAME`       | データベース名                  | `sample_db`           |
+| `DB_NAME`       | データベース名                 | `sample_db`           |
+| `TABLE_NAME`    | テーブル名                     | `sample_table`           |
 | `ALLOW_FILES`   | アップロード許可する拡張子リスト | `jpg,jpeg,png`        |
 
 
@@ -92,6 +93,7 @@ DB_HOST = "ホスト名"
 DB_USER = "ユーザ名"
 DB_PASSWORD = "パスワード"
 DB_NAME = "データベース名"
+TABLE_NAME = "テーブル名"
 ALLOW_FILES = {'jpeg', 'jpg', 'png', 'gif'}
 ```
 
@@ -106,6 +108,6 @@ flask run
 ```
 
 ### 6. 動作確認
-http://127.0.0.1:5000にアクセスできるか確認
+http://[host]:5000にアクセスできるか確認
 
 ## 動作イメージ

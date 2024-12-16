@@ -9,40 +9,57 @@ import mysql.connector
 
 from flaskr.app_util import db_connect,db_create
 
+
+load_dotenv()
+
+def get_env(env_name):
+    value = os.getenv(env_name)
+    if not value:
+        raise ValueError(f"環境変数 '{env_name}'を設定してください")
+    return value
+
 def create_database():
-    load_dotenv()
-    db_name = os.getenv("DB_NAME")
-    if not db_name:
-        print("環境変数 DB_NAME を設定して下さい。")
-    conn = db_create()
-    cursor = conn.cursor()
-    create_db_sql = f"""
-    CREATE DATABASE IF NOT EXISTS `{db_name}`
-    """
     try:
+        db_name = get_env("DB_NAME")
+        conn = db_create()
+        cursor = conn.cursor()
+        create_db_sql = f"""
+        CREATE DATABASE IF NOT EXISTS `{db_name}`
+        """
         cursor.execute(create_db_sql)
         print("データベースが正常に作成されました")
     except mysql.connector.Error as err:
         print(f"データベース作成に失敗しました: {err}")
+    except ValueError as ve:
+        print(ve)
     finally:
-        cursor.close()
-        conn.close()
+        if 'cursor' in locals():
+            cursor.close()
+        if  'conn' in locals():
+            conn.close()
 
 def create_samples_table():
-    conn = db_connect()
-    cursor = conn.cursor()
-    table_name = os.getenv("TABLE_NAME")
-    create_table_sql = f"""
-    CREATE TABLE IF NOT EXISTS `{table_name}` (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        filename VARCHAR(100),
-        image_data MEDIUMBLOB,
-        create_day DATETIME DEFAULT CURRENT_TIMESTAMP,
-        update_day DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-    )
-    """
-
-
-    cursor.execute(create_table_sql)
-    cursor.close()
-    conn.close()
+    try:
+        table_name = get_env("TABLE_NAME")
+        conn = db_connect()
+        cursor = conn.cursor()
+        create_table_sql = f"""
+        CREATE TABLE IF NOT EXISTS `{table_name}` (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            filename VARCHAR(100),
+            image_data MEDIUMBLOB,
+            create_day DATETIME DEFAULT CURRENT_TIMESTAMP,
+            update_day DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+        )
+        """
+        cursor.execute(create_table_sql)
+        print("テーブルが正常に作成されました")
+    except mysql.connector.Error as err:
+        print(f"テーブル作成失敗：{err}")
+    except ValueError as ve:
+        print(ve)
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if  'conn' in locals():
+            conn.close()
