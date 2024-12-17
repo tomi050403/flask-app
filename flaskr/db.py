@@ -27,7 +27,7 @@ def create_database():
         CREATE DATABASE IF NOT EXISTS `{db_name}`
         """
         cursor.execute(create_db_sql)
-        print("データベースが正常に作成されました")
+        print(" * Database initialization completed")
     except mysql.connector.Error as err:
         print(f"データベース作成に失敗しました: {err}")
     except ValueError as ve:
@@ -53,7 +53,7 @@ def create_samples_table():
         )
         """
         cursor.execute(create_table_sql)
-        print("テーブルが正常に作成されました")
+        print(" * Table initialization completed")
     except mysql.connector.Error as err:
         print(f"テーブル作成失敗：{err}")
     except ValueError as ve:
