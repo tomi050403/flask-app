@@ -8,11 +8,14 @@ from flaskr import app
 from flaskr.app_util import db_connect,allow_file
 
 
+load_dotenv()
+
 @app.route('/')
 def index():
+    table_name = get_env("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
-    cursor.execute('SELECT * FROM samples')
+    cursor.execute(f'SELECT * FROM {table_name}')
     db_samples = cursor.fetchall()
     cursor.close()
     connect.close()
@@ -41,6 +44,7 @@ def create_html():
 
 @app.route('/create', methods=['POST'])
 def create():
+    table_name = get_env("TABLE_NAME")
     file = request.files['image_data']
     filename = request.form['filename']
     if file and allow_file(file.filename):
@@ -49,8 +53,8 @@ def create():
         connect = db_connect()
         cursor = connect.cursor()
         cursor.execute(
-            """
-            INSERT INTO samples (filename, image_data, create_day)
+            f"""
+            INSERT INTO {table_name} (filename, image_data, create_day)
             VALUES(%s, %s, NOW())
             """,
             [filename, image_data]
@@ -70,11 +74,12 @@ def create_success_html():
 
 @app.route('/read_form/<int:sample_id>', methods=['GET'])
 def read_form(sample_id):
+    table_name = get_env("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
-        """
-        SELECT * FROM samples WHERE id = %s
+        f"""
+        SELECT * FROM {table_name} WHERE id = %s
         """,
         (sample_id,)
     )
@@ -98,11 +103,12 @@ def read_form(sample_id):
 
 @app.route('/update_form/<int:sample_id>', methods=['GET'])
 def update_form(sample_id):
+    table_name = get_env("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
-        """
-        SELECT * FROM samples WHERE id = %s
+        f"""
+        SELECT * FROM {table_name} WHERE id = %s
         """,
         (sample_id,)
     )
@@ -127,14 +133,15 @@ def update_form(sample_id):
 
 @app.route('/update_execute/<int:sample_id>', methods=['POST'])
 def update_execute(sample_id):
+    table_name = get_env("TABLE_NAME")
     file = request.files.get('image_data')
     filename = request.form.get('filename', '').strip()
     image_data = file.read() if file and file.filename and allow_file(file.filename) else None
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
-        """
-        UPDATE samples SET 
+        f"""
+        UPDATE {table_name} SET 
             filename = COALESCE(NULLIF(%s, ''), filename),
             image_data = COALESCE(%s, image_data),
             update_day = NOW()
@@ -155,11 +162,12 @@ def update_success():
     
 @app.route('/delete_form/<int:sample_id>', methods=['GET','POST'])
 def delete_form(sample_id):
+    table_name = get_env("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
-        """
-        SELECT * FROM samples WHERE id = %s
+        f"""
+        SELECT * FROM {table_name} WHERE id = %s
         """,
         (sample_id,)
     )
@@ -180,8 +188,8 @@ def delete_form(sample_id):
             connect = db_connect()
             cursor = connect.cursor()
             cursor.execute(
-                """    
-                DELETE FROM samples WHERE id = %s
+                f"""    
+                DELETE FROM {table_name} WHERE id = %s
                 """,
                 (sample_id,)
             )
