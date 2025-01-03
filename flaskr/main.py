@@ -12,7 +12,7 @@ load_dotenv()
 
 @app.route('/')
 def index():
-    table_name = get_env("TABLE_NAME")
+    table_name = os.getenv("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(f'SELECT * FROM {table_name}')
@@ -44,7 +44,7 @@ def create_html():
 
 @app.route('/create', methods=['POST'])
 def create():
-    table_name = get_env("TABLE_NAME")
+    table_name = os.getenv("TABLE_NAME")
     file = request.files['image_data']
     filename = request.form['filename']
     if file and allow_file(file.filename):
@@ -74,7 +74,7 @@ def create_success_html():
 
 @app.route('/read_form/<int:sample_id>', methods=['GET'])
 def read_form(sample_id):
-    table_name = get_env("TABLE_NAME")
+    table_name = os.getenv("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
@@ -103,7 +103,7 @@ def read_form(sample_id):
 
 @app.route('/update_form/<int:sample_id>', methods=['GET'])
 def update_form(sample_id):
-    table_name = get_env("TABLE_NAME")
+    table_name = os.getenv("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
@@ -133,7 +133,7 @@ def update_form(sample_id):
 
 @app.route('/update_execute/<int:sample_id>', methods=['POST'])
 def update_execute(sample_id):
-    table_name = get_env("TABLE_NAME")
+    table_name = os.getenv("TABLE_NAME")
     file = request.files.get('image_data')
     filename = request.form.get('filename', '').strip()
     image_data = file.read() if file and file.filename and allow_file(file.filename) else None
@@ -162,7 +162,7 @@ def update_success():
     
 @app.route('/delete_form/<int:sample_id>', methods=['GET','POST'])
 def delete_form(sample_id):
-    table_name = get_env("TABLE_NAME")
+    table_name = os.getenv("TABLE_NAME")
     connect = db_connect()
     cursor = connect.cursor()
     cursor.execute(
