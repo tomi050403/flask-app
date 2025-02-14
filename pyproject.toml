@@ -2,9 +2,13 @@
 name = "flaskr"
 version = "0.1.0"
 description = ""
+<<<<<<< HEAD
 authors = [
     {name = "tomi"},
 ]
+=======
+authors = ["jhon smith <tomi@example.com>"]
+>>>>>>> bcf123b0cbc253a923849a5e338e3a58581d4b49
 readme = "README.md"
 
 [tool.poetry.dependencies]
