@@ -1,7 +1,6 @@
 from flask import Flask
 app = Flask(__name__)
 
-from flaskr import main
-from flaskr import db
-from db_util import db_connect
+from flaskr import main,db,app_util
+db.create_database()
 db.create_samples_table()

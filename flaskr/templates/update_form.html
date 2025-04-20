@@ -24,17 +24,23 @@
             <div class="main_contents">
                 <p>Rewrite to any data</p>
                 <br>
-                <form method="post" action="{{ url_for('update_execute', sample_id=sample.id) }}">
+                <form method="post" action="{{ url_for('update_execute', sample_id=sample.id) }}" enctype="multipart/form-data">
                     <table border="1">
                         <tr>
-                            <th>タイトル</th>
-                            <th>ナンバー</th>
-                            <th>登録日</th>
+                            <th>Title</th>
+                            <th>Title（after）</th>
+                            <th>Image</th>
+                            <th>Image（after）</th>
+                            <th>Create Day</th>
                         </tr>
                         <tr>
-                            <td><input type="text" name="title" value="{{ sample.title }}"></td>
-                            <td><input type="number" name="number" value="{{ sample.number }}"></td>
-                            <td><input type="datetime" name="create_day" value="{{ sample.create_day }}"></td>
+                            <td>{{ sample.filename }}</td>
+                            <td><input type="text" name="filename" value="{{ sample.filename }}"></td>
+                            <td>
+                                <img src="{{ sample.image_data }}" alt="{{ sample.filename }}" width="200">
+                            </td>
+                            <td><input type="file" name="image_data" accept="{{ accept_file_types }}"></td>
+                            <td>{{ sample.create_day }}</td>
                         </tr>
                     </table>
                     <br>

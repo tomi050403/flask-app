@@ -24,14 +24,18 @@
             <div class="main_contents">
                 <table border="1">
                     <tr>
-                        <th>タイトル</th>
-                        <th>ナンバー</th>
-                        <th>登録日</th>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>Create Day</th>
+                        <th>Update Day</th>
                     </tr>
                     <tr>
-                        <td>{{ sample.title }}</td>
-                        <td>{{ sample.number }}</td>
+                        <td>{{ sample.filename }}</td>
+                        <td>
+                            <img src="{{ sample.image_data }}" alt="{{ sample.filename }}" width="200">
+                        </td>
                         <td>{{ sample.create_day }}</td>
+                        <td>{{ sample.update_day }}</td>
                     </tr>
                 </table>
                 <br>
