@@ -1,6 +1,7 @@
 
 .python-version
 .env
+poetry.lock
 
 old
 flaskr/__pycache__
