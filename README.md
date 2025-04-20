@@ -39,24 +39,24 @@ Flaskを使用したバックエンドとMySQLを使用したデータベース�
 ```
 ### Flask
 ```bash
-3.0.3
+3.0.3以上
 ```
 ### Jinja2
 ```bash
-3.1.4
+3.1.4以上
 ```
 ### MySQL Connector for Python
 ```bash
-9.1.0
+9.1.0以上
 ```
 ### python-dotenv
 ```bash
-1.0.1
+1.0.1以上
 ```
 ### データベース
 - MySQL
 ```bash
-8.0.39
+8.0.39以上
 ```
 ---
 
