@@ -39,19 +39,19 @@ Flaskを使用したバックエンドとMySQLを使用したデータベース�
 ```
 ### Flask
 ```bash
-3.0.3
+3.1.1
 ```
 ### Jinja2
 ```bash
-3.1.4
+3.1.6
 ```
 ### MySQL Connector for Python
 ```bash
-9.1.0
+9.3.0
 ```
 ### python-dotenv
 ```bash
-1.0.1
+1.1.0
 ```
 ### データベース
 - MySQL
@@ -100,7 +100,7 @@ ALLOW_FILES = {'jpeg', 'jpg', 'png', 'gif'}
 ### 5. アプリケーションの起動
 
 ```bash
-export FALSK_APP=flaskr
+export FLASK_APP=flaskr
 ```
 
 ```bash
@@ -112,3 +112,9 @@ http://[host]:5000にアクセスし、アプリケーションの動作を確�
 
 ## 動作イメージ
 ![動作イメージ](flaskr/static/image.gif)
+
+
+## 更新履歴
+
+- 2025-06-02 Flaskの脆弱性 (CVE-2025-47278) に対応し、3.1.1へアップデート
+- 2025-06-02 DB接続エラー時の500エラー応答を追加
