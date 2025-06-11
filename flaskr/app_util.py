@@ -11,9 +11,8 @@ def db_create():
             password=os.getenv("DB_PASSWORD"),
         )
         return connection
-    except Error as e:
-        print(f"DB_Create_Connection_Error: {e}")
-        raise
+    except mysql.connector.Error as e:
+        return f"DB_Create_Error or Connection_Error: {e}", 500
 
 def db_connect():
     load_dotenv()
@@ -25,9 +24,8 @@ def db_connect():
             database = os.getenv('DB_NAME')
         )
         return connection
-    except Error as e:
-        print(f"DB_Connection_Error: {e}")
-        raise
+    except mysql.connector.Error as e:
+        return f"DB_Connection_Error or Query_Error: {e}", 500
 
 def allow_file(filename):
     files = os.getenv('ALLOW_FILES')

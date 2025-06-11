@@ -12,16 +12,13 @@ load_dotenv()
 
 @app.route('/')
 def index():
-    try:
-        table_name = os.getenv("TABLE_NAME")
-        connect = db_connect()
-        cursor = connect.cursor()
-        cursor.execute(f'SELECT * FROM {table_name}')
-        db_samples = cursor.fetchall()
-        cursor.close()
-        connect.close()
-    except mysql.connector.Error as err:
-        return f"DB_Connection_Error or Query_Error: {err}", 500
+    table_name = os.getenv("TABLE_NAME")
+    connect = db_connect()
+    cursor = connect.cursor()
+    cursor.execute(f'SELECT * FROM {table_name}')
+    db_samples = cursor.fetchall()
+    cursor.close()
+    connect.close()
     samples = []
     for row in db_samples:
         image_data = base64.b64encode(row[2]).decode('utf-8') if row[2] else None
@@ -53,21 +50,18 @@ def create():
     if file and allow_file(file.filename):
         image_file = request.files['image_data']
         image_data = image_file.read() if image_file else None
-        try:
-            connect = db_connect()
-            cursor = connect.cursor()
-            cursor.execute(
-                f"""
-                INSERT INTO {table_name} (filename, image_data, create_day)
-                VALUES(%s, %s, NOW())
-                """,
-                [filename, image_data]
-            )
-            connect.commit()
-            cursor.close()
-            connect.close()
-        except mysql.connector.Error as err:
-            return f"DB_Connection_Error or Query_Error: {err}", 500
+        connect = db_connect()
+        cursor = connect.cursor()
+        cursor.execute(
+            f"""
+            INSERT INTO {table_name} (filename, image_data, create_day)
+            VALUES(%s, %s, NOW())
+            """,
+            [filename, image_data]
+        )
+        connect.commit()
+        cursor.close()
+        connect.close()
         return redirect(url_for('create_success_html'))
     else:
         return "File Format NG or No Upload File", 400
@@ -81,20 +75,17 @@ def create_success_html():
 @app.route('/read_form/<int:sample_id>', methods=['GET'])
 def read_form(sample_id):
     table_name = os.getenv("TABLE_NAME")
-    try:
-        connect = db_connect()
-        cursor = connect.cursor()
-        cursor.execute(
-            f"""
-            SELECT * FROM {table_name} WHERE id = %s
-            """,
-            (sample_id,)
-        )
-        sample_row = cursor.fetchone()
-        cursor.close()
-        connect.close()
-    except mysql.connector.Error as err:
-        return f"DB_Connection_Error or Query_Error: {err}", 500
+    connect = db_connect()
+    cursor = connect.cursor()
+    cursor.execute(
+        f"""
+        SELECT * FROM {table_name} WHERE id = %s
+        """,
+        (sample_id,)
+    )
+    sample_row = cursor.fetchone()
+    cursor.close()
+    connect.close()
     if sample_row:
         image_data = base64.b64encode(sample_row[2]).decode('utf-8') if sample_row[2] else None
         sample ={
@@ -112,21 +103,18 @@ def read_form(sample_id):
 
 @app.route('/update_form/<int:sample_id>', methods=['GET'])
 def update_form(sample_id):
-    try:
-        table_name = os.getenv("TABLE_NAME")
-        connect = db_connect()
-        cursor = connect.cursor()
-        cursor.execute(
-            f"""
-            SELECT * FROM {table_name} WHERE id = %s
-            """,
-            (sample_id,)
-        )
-        sample_row = cursor.fetchone()
-        cursor.close()
-        connect.close()
-    except mysql.connector.Error as err:
-        return f"DB_Connection_Error or Query_Error: {err}", 500
+    table_name = os.getenv("TABLE_NAME")
+    connect = db_connect()
+    cursor = connect.cursor()
+    cursor.execute(
+        f"""
+        SELECT * FROM {table_name} WHERE id = %s
+        """,
+        (sample_id,)
+    )
+    sample_row = cursor.fetchone()
+    cursor.close()
+    connect.close()
     if sample_row:
         image_data = base64.b64encode(sample_row[2]).decode('utf-8') if sample_row[2] else None
         sample ={
@@ -149,24 +137,21 @@ def update_execute(sample_id):
     file = request.files.get('image_data')
     filename = request.form.get('filename', '').strip()
     image_data = file.read() if file and file.filename and allow_file(file.filename) else None
-    try:
-        connect = db_connect()
-        cursor = connect.cursor()
-        cursor.execute(
-            f"""
-            UPDATE {table_name} SET 
-                filename = COALESCE(NULLIF(%s, ''), filename),
-                image_data = COALESCE(%s, image_data),
-                update_day = NOW()
-            WHERE id = %s
-            """,
-            (filename, image_data, sample_id)
-        )
-        connect.commit()
-        cursor.close()
-        connect.close()
-    except mysql.connector.Error as err:
-        return f"DB_Connection_Error or Query_Error: {err}", 500
+    connect = db_connect()
+    cursor = connect.cursor()
+    cursor.execute(
+        f"""
+        UPDATE {table_name} SET 
+            filename = COALESCE(NULLIF(%s, ''), filename),
+            image_data = COALESCE(%s, image_data),
+            update_day = NOW()
+        WHERE id = %s
+        """,
+        (filename, image_data, sample_id)
+    )
+    connect.commit()
+    cursor.close()
+    connect.close()
     return redirect(url_for('update_success'))
 
 @app.route('/update_success')
@@ -177,21 +162,18 @@ def update_success():
     
 @app.route('/delete_form/<int:sample_id>', methods=['GET','POST'])
 def delete_form(sample_id):
-    try:
-        table_name = os.getenv("TABLE_NAME")
-        connect = db_connect()
-        cursor = connect.cursor()
-        cursor.execute(
-            f"""
-            SELECT * FROM {table_name} WHERE id = %s
-            """,
-            (sample_id,)
-        )
-        delete_row = cursor.fetchone()
-        cursor.close()
-        connect.close()
-    except mysql.connector.Error as err:
-        return f"DB_Connection_Error or Query_Error: {err}", 500
+    table_name = os.getenv("TABLE_NAME")
+    connect = db_connect()
+    cursor = connect.cursor()
+    cursor.execute(
+        f"""
+        SELECT * FROM {table_name} WHERE id = %s
+        """,
+        (sample_id,)
+    )
+    delete_row = cursor.fetchone()
+    cursor.close()
+    connect.close()
     if delete_row:
         image_data = base64.b64encode(delete_row[2]).decode('utf-8') if delete_row[2] else None
         sample ={
